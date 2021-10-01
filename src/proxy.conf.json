@@ -1,0 +1,9 @@
+{
+    "/api": {
+    "target": "https://sapes5.sapdevcenter.com/sap/opu/odata/sap/EPM_REF_APPS_PROD_MAN_SRV",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {"^/api" : ""}
+    }
+  }

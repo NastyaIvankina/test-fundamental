@@ -1,0 +1,74 @@
+<fd-toolbar>
+    <label fd-toolbar-label i18n>
+        Products
+    </label>
+    <fd-toolbar-spacer></fd-toolbar-spacer>
+    <button fd-toolbar-item
+            fd-button
+            label="Open Table Customization"
+            [compact]="true"
+            fdType="transparent"
+            i18n
+            (click)="openDialog()"></button>
+</fd-toolbar>
+<fd-busy-indicator [loading]="loading" [block]="true" size="m" aria-labelledby="productTable">
+<table id="productTable" fd-table [responsive]="true">
+    <thead fd-table-header [noBorderX]="true">
+        <tr fd-table-row>
+            <th i18n="product image | Image of the product" fd-table-cell>Id</th>
+            <th i18n="product | Product name" fd-table-cell>Product</th>
+            <th i18n="category" fd-table-cell>Category</th>
+            <th i18n fd-table-cell>Sub-Category</th>
+            <th i18n fd-table-cell>Supplier Name</th>
+            <th i18n fd-table-cell>Availability</th>
+            <th i18n fd-table-cell>Price per Unit</th>
+            <th fd-table-cell></th>
+        </tr>
+    </thead>
+    <tbody fd-table-body [noBorderX]="true">
+        <tr
+            *ngFor="let row of products; let i = index"
+            fd-table-row
+            [hoverable]="true"
+            [activable]="true"
+        >
+            <td fd-table-cell>
+                {{ row.Id }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.Name }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.MainCategoryName }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.SubCategoryName }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.SupplierName }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.StockQuantity }}
+            </td>
+
+            <td fd-table-cell>
+                {{ row.Price | currency: row.CurrencyCode }}
+            </td>
+
+            <td fd-table-cell [fitContent]="true" [noPadding]="true">
+                <i
+                    fd-table-icon
+                    [glyph]="isRtl ? 'slim-arrow-left' : 'slim-arrow-right'"
+                    [navigation]="true"
+                    role="presentation"
+                ></i>
+            </td>
+        </tr>
+    </tbody> 
+</table>
+</fd-busy-indicator>
