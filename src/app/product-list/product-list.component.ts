@@ -7,6 +7,7 @@ import { ProductTableDisplayedColumn } from '../productTableItem';
 import { DynamicComponentService } from '@fundamental-ngx/core';
 import { ColumnsCustomizeDialogComponent } from '../columns-customize-dialog/columns-customize-dialog.component';
 import { TableComponent } from '@fundamental-ngx/core/table';
+import { ProductTableItem } from '../productTableItem';
 
 @Component({
   selector: 'app-product-list',
@@ -17,11 +18,11 @@ import { TableComponent } from '@fundamental-ngx/core/table';
               DynamicComponentService]
 })
 export class ProductListComponent implements OnInit {
-  products: ProductItem[] = [];
+  // products: ProductItem[] = [];
+  products: ProductTableItem[] = [];
   loading = false;
   displayedColumns: string[] = [];
   originalDisplayedColumns: ProductTableDisplayedColumn[] = [];
-  initialDisplaydColumns: string[];
   dialogRef = DialogRef;
 
   @ViewChild(TableComponent)
@@ -33,12 +34,13 @@ export class ProductListComponent implements OnInit {
     private _dialogService: DialogService
     ) { 
       //initial columns to display
-      this.initialDisplaydColumns = ['Id', 'Name', 'MainCategoryName', 'SubCategoryName', 'SupplierName', 'StockQuantity', 'Price'];
+      this.displayedColumns = ['Id', 'Name', 'MainCategoryName', 'SubCategoryName', 'SupplierName', 'StockQuantity', 'AverageRating', 'Price'];
     }
 
   ngOnInit(): void {
     this.loading = true;
     this.getProducts();
+    // this._propagateChangeToDisplayedValue();
   }
 
   getProducts(): void {
@@ -88,9 +90,9 @@ private _propagateChangeToDisplayedValue(): void {
     if (this.products && this.originalDisplayedColumns.length === 0) {
       // fill columns keys table
       Object.keys(this.products[0]).forEach(key => {
-        let checked = this.initialDisplaydColumns.includes(key) ? true : false;
-        if (key !== '__metadata' && key !== 'Supplier') {
-          this.originalDisplayedColumns.push({ key: key, checked: checked });
+        // let checked = this.displayedColumns.includes(key) ? true : false;
+        if (key !== '__metadata' && key !== 'CurrencyCode') {
+          this.originalDisplayedColumns.push({ key: key, checked: true });
         }
     });
     }
