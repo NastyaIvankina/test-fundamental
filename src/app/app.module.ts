@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ColumnsCustomizeDialogComponent } from './columns-customize-dialog/columns-customize-dialog.component';
 import { FilterProductColumnsPipe } from './filter-product-columns.pipe';
 import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
-import { DragAndDropModule } from '@fundamental-ngx/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { DragAndDropModule } from '@fundamental-ngx/core';
     FormsModule,
     ReactiveFormsModule,
     InputGroupModule,
-    DragAndDropModule
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

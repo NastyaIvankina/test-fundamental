@@ -3,7 +3,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProductTableDisplayedColumn } from '../productTableItem';
 import { DialogRef } from '@fundamental-ngx/core/dialog';
 
-
 @Component({
   selector: 'app-columns-customize-dialog',
   templateUrl: './columns-customize-dialog.component.html',
@@ -29,11 +28,8 @@ export class ColumnsCustomizeDialogComponent implements OnInit {
     this.showError = checked ? false : this.showError;
   }
 
-  dropHandle(event: Event): void {
-    if (this._isDragDrop(event)) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-    this.columns = [...this.columns];
-    }
+dropHandle(event: CdkDragDrop<ProductTableDisplayedColumn[]>): void {
+  moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
 }
 
 handleAllChange(selected: boolean): void {
@@ -48,7 +44,7 @@ handleAllChange(selected: boolean): void {
 
 sortAlphabetically(reverse?: boolean): void {
   this.columns = this.columns.sort((a, b) => {
-      if (a.key > b.key) {
+      if (a.columnName > b.columnName) {
           return -1;
       } else {
           return 1
@@ -58,8 +54,6 @@ sortAlphabetically(reverse?: boolean): void {
   if (reverse) {
       this.columns = this.columns.reverse();
   }
-
-  this.columns = [...this.columns];
 }
 
 save(): void {
@@ -80,9 +74,5 @@ dismiss(): void {
 
 private _isAnySelected(): boolean {
   return this.columns.some(c => c.checked);
-}
-
-private _isDragDrop(object: any): object is CdkDragDrop<string[]> {
-  return 'previousIndex' in object;
 }
 }

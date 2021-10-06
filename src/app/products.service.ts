@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ProductItem, ProductItemResponse } from './ProductItem';
 import { catchError, map } from 'rxjs/operators';
 import { ProductTableItem, ProductTableResponse } from './productTableItem';
 
@@ -18,15 +17,7 @@ export class ProductsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  // private productsUrl = 'api/Products'
   private productsTableUrl = 'api/Products?$select=CurrencyCode,Id,StockQuantity,Name,SubCategoryName,MainCategoryName,SupplierName,Price,AverageRating';
-
-  // getProducts(): Observable<ProductItem[]> {
-  //   return this.http.get<ProductItemResponse>(this.productsUrl, this.httpOptions).pipe(
-  //     map(response => response.d.results ),
-  //     catchError(this.handleError<ProductItem[]>('getProducts', []))
-  //   )
-  // }
 
     getProducts(): Observable<ProductTableItem[]> {
     return this.http.get<ProductTableResponse>(this.productsTableUrl, this.httpOptions).pipe(
@@ -37,10 +28,8 @@ export class ProductsService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

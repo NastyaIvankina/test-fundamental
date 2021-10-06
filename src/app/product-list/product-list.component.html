@@ -15,7 +15,7 @@
 <table id="productTable" fd-table [responsive]="true">
     <thead fd-table-header [noBorderX]="true">
         <tr fd-table-row>
-            <th fd-table-cell *ngFor="let column of displayedColumns" [key]="column">{{column}}</th>
+            <th fd-table-cell *ngFor="let column of originalDisplayedColumns" [key]="column.key">{{column.columnName}}</th>
             <th fd-table-cell></th>
         </tr>
     </thead>

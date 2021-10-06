@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { ProductItem } from '../ProductItem';
 import { ProductsService } from '../products.service';
 import { RtlService } from '@fundamental-ngx/core';
 import { DialogRef, DialogService } from '@fundamental-ngx/core/dialog';
-import { ProductTableDisplayedColumn } from '../productTableItem';
+import { ProductTableDisplayedColumn, ProductColumnNames } from '../productTableItem';
 import { DynamicComponentService } from '@fundamental-ngx/core';
 import { ColumnsCustomizeDialogComponent } from '../columns-customize-dialog/columns-customize-dialog.component';
 import { TableComponent } from '@fundamental-ngx/core/table';
@@ -32,15 +31,11 @@ export class ProductListComponent implements OnInit {
     private _productsService: ProductsService,
     private _rtlService: RtlService,
     private _dialogService: DialogService
-    ) { 
-      //initial columns to display
-      this.displayedColumns = ['Id', 'Name', 'MainCategoryName', 'SubCategoryName', 'SupplierName', 'StockQuantity', 'AverageRating', 'Price'];
-    }
+    ) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.getProducts();
-    // this._propagateChangeToDisplayedValue();
   }
 
   getProducts(): void {
@@ -48,6 +43,7 @@ export class ProductListComponent implements OnInit {
       this.products = results;
       this.loading = false;
       this._fillColumnsKeys();
+      this._propagateChangeToDisplayedValue();
     });
   }
 
@@ -66,7 +62,7 @@ export class ProductListComponent implements OnInit {
 
     dialogRef.afterClosed.subscribe(
         (columns) => {
-            this.originalDisplayedColumns = [...columns];
+            this.originalDisplayedColumns = columns;
             this._propagateChangeToDisplayedValue();
         },
         () => {
@@ -92,7 +88,9 @@ private _propagateChangeToDisplayedValue(): void {
       Object.keys(this.products[0]).forEach(key => {
         // let checked = this.displayedColumns.includes(key) ? true : false;
         if (key !== '__metadata' && key !== 'CurrencyCode') {
-          this.originalDisplayedColumns.push({ key: key, checked: true });
+          let columnName = ProductColumnNames.find(element => element.key === key)?.columnName;
+          // key = columnName ? columnName : '';
+          this.originalDisplayedColumns.push({ key: key, columnName: columnName ? columnName : '', checked: true });
         }
     });
     }
