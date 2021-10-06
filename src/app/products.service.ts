@@ -13,14 +13,10 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   private productsTableUrl = 'api/Products?$select=CurrencyCode,Id,StockQuantity,Name,SubCategoryName,MainCategoryName,SupplierName,Price,AverageRating';
 
     getProducts(): Observable<ProductTableItem[]> {
-    return this.http.get<ProductTableResponse>(this.productsTableUrl, this.httpOptions).pipe(
+    return this.http.get<ProductTableResponse>(this.productsTableUrl).pipe(
       map(response => response.d.results ),
       catchError(this.handleError<ProductTableItem[]>('getProducts', []))
     )

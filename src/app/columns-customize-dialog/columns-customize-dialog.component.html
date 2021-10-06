@@ -44,7 +44,7 @@
                 <span fd-list-title>All Keys</span>
             </li>
 
-            <li *ngFor="let column of columns | filterProductColumns : filterPhrase : 'key'"
+            <li *ngFor="let column of columns | filterProductColumns : filterPhrase : 'columnName'"
                 cdkDrag
                 fd-list-item
                 [selected]="column.checked">
